@@ -1,0 +1,39 @@
+
+    *
+    { /* Depurado de Estilos de todo el documento */
+     margin:0 ;
+     padding: 0;
+    }   
+
+    .btn-horizontal {
+    font-size: large;    
+    display: inline-block;
+     color:white;
+     white-space: nowrap;
+     text-decoration: none;
+     transition: transform 0.2s ease-in-out; 
+     padding: 40px 40px 0px 10%;
+     }
+
+
+    .hidden {
+    display: none;
+            }
+
+   .titulo{
+    margin: 15px; 
+    font-size: 200%; 
+    color: white;
+    }
+
+    .subtitulo{
+        margin: 15px; 
+        font-size: 100%; 
+        color: white;
+    }
+ 
+    .long-label {
+        display: inline-block; /* Hace que el label se comporte como un bloque pero aún se muestre en línea */
+        width: 200px; /* Ajusta el ancho según sea necesario */
+      }
+      
