@@ -36,7 +36,7 @@
   </div>
 
   <div class="container">        
-  <h2>Resultados de la Búsqueda</h2>
+  <h2>Sección</h2>
 
   <?php
 
@@ -210,6 +210,85 @@ if(isset($_GET['busqueda'])) {
     ?>   
 
     </div>
+
+<!--  ====== Acordeón Profesores Ejemplo ======= -->
+
+<div class="container">
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+<?php
+// Conexión a la base de datos
+    include_once "base.php";
+
+// según las especificaciones dadas
+$query = "SELECT num_trabajador, nombre_doc, total_cargos, seccion, titulo, especialidad
+          FROM docentes
+          ORDER BY total_cargos ASC, nombre_doc ASC";
+
+// Ejecutar la consulta SQL
+$result = mysqli_query($conexion, $query);
+
+// Array asociativo para agrupar los docentes por sección
+$docentes_por_seccion = array();
+
+// Obtener los datos de los docentes y agruparlos por sección
+while ($row = mysqli_fetch_assoc($result)) {
+    $seccion = $row['seccion'];
+    if (!isset($docentes_por_seccion[$seccion])) {
+        $docentes_por_seccion[$seccion] = array();
+    }
+    $docentes_por_seccion[$seccion][] = $row;
+}
+
+// Mostrar los docentes en el menú acordeón
+foreach ($docentes_por_seccion as $seccion => $docentes) {
+    echo '<div class="accordion-item">';
+    echo '<h2 class="accordion-header" id="flush-heading' . $seccion . '">';
+    echo '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse' . $seccion . '" aria-expanded="false" aria-controls="flush-collapse' . $seccion . '">';
+    echo $seccion;
+    echo '</button>';
+    echo '</h2>';
+    echo '<div id="flush-collapse' . $seccion . '" class="accordion-collapse collapse" aria-labelledby="flush-heading' . $seccion . '" data-bs-parent="#accordionFlushExample">';
+    echo '<div class="accordion-body">';
+    echo '<ul>';
+
+    foreach ($docentes as $docente) {
+        echo '<li><a href="#" onclick="mostrarAlerta(' . $docente['num_trabajador'] . ', \'' . $docente['total_cargos'] . '\', \'' . $docente['nombre_doc'] . '\', \'' . $docente['titulo'] . '\', \'' . $docente['especialidad'] . '\')">' . $docente['total_cargos'] . ' - ' . $docente['nombre_doc'] . ' - ' . $docente['titulo'] . '</a></li>';
+    }
+    
+
+
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+}
+
+                    // Cerrar la conexión
+                    $conexion->close(); 
+
+?>
+</div>
+
+
+</div>
+
+<!-- Scripts para alertas -->
+<script>
+    function mostrarAlerta(num_trabajador, total_cargos, nombre_doc, titulo, especialidad) {
+        // Mostramos los datos del docente en una alerta
+        alert("Número de Trabajador: " + num_trabajador +
+            "\nTotal de Cargos: " + total_cargos +
+            "\nNombre: " + nombre_doc +
+            "\nTítulo: " + titulo+
+            "\nEspecialidad: " + especialidad);
+    }
+</script>
+
+
+
+
+
 
 
   <!-- Bootstrap Cerrado -->
