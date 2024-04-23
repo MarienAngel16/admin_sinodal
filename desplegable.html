@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Docentes</title>
+
+    <!-- Estilo General -->
+    <?php include_once "menu.html"; ?>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Estilos Personalizados -->
+    <style>
+        /* Color para Ciencias Administrativas */
+        .ciencias-administrativas-color {
+            background-color: #032D7C;
+        }
+
+        /* Color para Contaduría, Administración y Derecho */
+        .contaduria-administracion-derecho-color {
+            background-color: #E0B046;
+        }
+
+        /* Color para el contenido de Matemáticas y Sociales */
+        .matematicas-sociales-color {
+            background-color: #E0B046;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2>Resultados de la Búsqueda por Sección</h2>
+    
+    <!-- Selección del Departamento de Ciencias Administrativas -->
+    <div class="card ciencias-administrativas-color">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Secciones de Ciencias Administrativas:
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <div id="subaccordion">
+                    <!-- Contaduría -->
+                    <div class="card contaduria-administracion-derecho-color">
+                        <div class="card-header" id="subheadingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-white" data-toggle="collapse" data-target="#subcollapseOne" aria-expanded="true" aria-controls="subcollapseOne">
+                                Contaduría
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="subcollapseOne" class="collapse show" aria-labelledby="subheadingOne" data-parent="#subaccordion">
+                            <div class="card-body">
+                                Contenido
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Administración -->
+                    <div class="card contaduria-administracion-derecho-color">
+                        <div class="card-header" id="subheadingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-white collapsed" data-toggle="collapse" data-target="#subcollapseTwo" aria-expanded="false" aria-controls="subcollapseTwo">
+                                Administración
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="subcollapseTwo" class="collapse" aria-labelledby="subheadingTwo" data-parent="#subaccordion">
+                            <div class="card-body">
+                                Contenido 
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Derecho-->
+                    <div class="card contaduria-administracion-derecho-color">
+                        <div class="card-header" id="subheadingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-white collapsed" data-toggle="collapse" data-target="#subcollapseThree" aria-expanded="false" aria-controls="subcollapseThree">
+                                Derecho
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="subcollapseThree" class="collapse" aria-labelledby="subheadingThree" data-parent="#subaccordion">
+                            <div class="card-body">
+                                Contenido 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selección del Departamento de Matemáticas -->
+    <div class="container mt-5">
+        <div id="accordion">
+            <!-- Matemáticas -->
+            <div class="card ciencias-administrativas-color">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Departamento de Matemáticas
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body matematicas-sociales-color">
+                        Contenido 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selección del Departamento de Sociales -->
+    <div class="container mt-5">
+        <div id="accordion">
+            <!-- Sociales -->
+            <div class="card ciencias-administrativas-color">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        Departamento de Sociales
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body matematicas-sociales-color">
+                        Contenido 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resultados de la búsqueda -->
+    <div id="resultados" class="mt-3"></div>
+</div>
+
+
+<!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Función para mostrar las secciones de Ciencias Administrativas al seleccionar el departamento
+    function showSections(departamento) {
+        if (departamento === 'Ciencias Administrativas') {
+            document.getElementById('secciones').style.display = 'block';
+        } else {
+            document.getElementById('secciones').style.display = 'none';
+        }
+    }
+
+    // Función para realizar la búsqueda de docentes por sección
+    function searchDocentes(seccion) {
+        // Hacer una petición al servidor para obtener los docentes de la sección seleccionada
+        // Aquí puedes usar AJAX para enviar una solicitud al servidor y recibir los resultados
+        // Por simplicidad, solo mostraremos un mensaje con la sección seleccionada
+        document.getElementById('resultados').innerHTML = "<p>Mostrar docentes de la sección: " + seccion + "</p>";
+    }
+</script>
+
+</body>
+</html>

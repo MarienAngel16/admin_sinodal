@@ -215,6 +215,20 @@ if(isset($_GET['busqueda'])) {
 
 <div class="container">
 
+    <!-- Estilos Personalizados -->
+    <style>
+        /* Color para Ciencias Administrativas */
+        .header_color {
+            background-color: #032D7C;
+        }
+
+        /* Color para Contaduría, Administración y Derecho */
+        .content_color {
+            background-color: #E0B046;
+        }
+
+    </style>
+
 <div class="accordion accordion-flush" id="accordionFlushExample">
 <?php
 // Conexión a la base de datos
@@ -244,25 +258,24 @@ while ($row = mysqli_fetch_assoc($result)) {
 foreach ($docentes_por_seccion as $seccion => $docentes) {
     echo '<div class="accordion-item">';
     echo '<h2 class="accordion-header" id="flush-heading' . $seccion . '">';
-    echo '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse' . $seccion . '" aria-expanded="false" aria-controls="flush-collapse' . $seccion . '">';
+    echo '<button class="accordion-button collapsed text-navy"  style="background-color:#032D7C; color: white;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse' . $seccion . '" aria-expanded="false" aria-controls="flush-collapse' . $seccion . '">';
     echo $seccion;
     echo '</button>';
     echo '</h2>';
     echo '<div id="flush-collapse' . $seccion . '" class="accordion-collapse collapse" aria-labelledby="flush-heading' . $seccion . '" data-bs-parent="#accordionFlushExample">';
-    echo '<div class="accordion-body">';
+    echo '<div class="accordion-body content_color" style="background-color: #E0B046;">';
     echo '<ul>';
 
     foreach ($docentes as $docente) {
-        echo '<li><a href="#" onclick="mostrarAlerta(' . $docente['num_trabajador'] . ', \'' . $docente['total_cargos'] . '\', \'' . $docente['nombre_doc'] . '\', \'' . $docente['titulo'] . '\', \'' . $docente['especialidad'] . '\')">' . $docente['total_cargos'] . ' - ' . $docente['nombre_doc'] . ' - ' . $docente['titulo'] . '</a></li>';
+        echo '<li><a href="#" style="color: black;" onclick="mostrarAlerta(' . $docente['num_trabajador'] . ', \'' . $docente['total_cargos'] . '\', \'' . $docente['nombre_doc'] . '\', \'' . $docente['titulo'] . '\', \'' . $docente['especialidad'] . '\')">' . $docente['total_cargos'] . ' - ' . $docente['nombre_doc'] . ' - ' . $docente['titulo'] . '</a></li>';
     }
-    
-
 
     echo '</ul>';
     echo '</div>';
     echo '</div>';
     echo '</div>';
 }
+
 
                     // Cerrar la conexión
                     $conexion->close(); 
