@@ -20,7 +20,9 @@
     
 <!-- bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
+
+<div class="container">
+
 <?php 
   if (isset($_GET["numero"]) && $_GET["numero"] == 1) { 
     
@@ -94,7 +96,67 @@ if (isset($_GET["numero"]) && $_GET["numero"] == 0) {
       
     ';
 }
+echo '</div>';
 
+?>
+
+
+<!--  ====== Acordeón Trabajo Ejemplo ======= -->
+<section class="acordeon_trabajos">
+    <div class="container">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+<?php
+// Conexión a la base de datos
+include_once "base.php";
+
+// Consulta SQL para obtener los trabajos ordenados por fecha de registro
+$query = "SELECT clave, titulo, fecha_registro, encargado, activo, tipo_titulacion 
+          FROM trabajos
+          ORDER BY fecha_registro DESC";
+
+// Ejecutar la consulta SQL
+$result = mysqli_query($conexion, $query);
+
+// Array asociativo para agrupar los trabajos por tipo de titulación
+$trabajos_por_tipo = array();
+
+// Obtener los datos de los trabajos y agruparlos por tipo de titulación
+while ($row = mysqli_fetch_assoc($result)) {
+    $tipo_titulacion = $row['tipo_titulacion'];
+    if (!isset($trabajos_por_tipo[$tipo_titulacion])) {
+        $trabajos_por_tipo[$tipo_titulacion] = array();
+    }
+    $trabajos_por_tipo[$tipo_titulacion][] = $row;
+}
+
+// Mostrar los trabajos en el menú acordeón por tipo de titulación
+foreach ($trabajos_por_tipo as $tipo => $trabajos) {
+    echo '<div class="accordion-item">';
+    echo '<h2 class="accordion-header" id="flush-heading' . $tipo . '">';
+    echo '<button class="accordion-button collapsed text-white"  style="background-color:#032D7C;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse' . $tipo . '" aria-expanded="false" aria-controls="flush-collapse' . $tipo . '">';
+    echo $tipo;
+    echo '</button>';
+    echo '</h2>';
+    echo '<div id="flush-collapse' . $tipo . '" class="accordion-collapse collapse" aria-labelledby="flush-heading' . $tipo . '" data-bs-parent="#accordionFlushExample">';
+    echo '<div class="accordion-body" style="background-color: #E0B046;">';
+    echo '<ul>';
+
+    foreach ($trabajos as $trabajo) {
+        echo '<li><a href="asignar.php?clave=' . $trabajo['clave'] . '&fecha_registro=' . $trabajo['fecha_registro'] . '&activo=' . $trabajo['activo'] . '&titulo=' . $trabajo['titulo'] . '" style="color: black;">' . $trabajo['clave'] . ' - ' . $trabajo['fecha_registro'] . ' - ' . $trabajo['activo'] . ' - ' . $trabajo['titulo'] . '</a></li>';       
+    }    
+
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+}
+
+?>
+        </div>        
+    </div>
+</section>
+
+<?php
 /* ----------------------PROCEDIMIENTOS---------------------- */
 
 if(isset($_GET['busqueda'])) {
@@ -159,12 +221,12 @@ if ($busqueda){
     } else {
         echo '<script>alert("No se encontraron resultados.");</script>';
     }
-
-
 }
+
 // Cerrar la conexión
 $conexion->close();  
 }
+
 
 // Procesamiento del formulario
 if(isset($_POST["clave"])) {
@@ -200,9 +262,6 @@ try {
         echo '<script>alert("Error al registrar alumno: Ha ocurrido un error.");</script>';
     }
 }
-
-                // Cerrar la conexión            
-                $conexion->close(); 
 
 }
 /* FIN DE GUARDADO */
@@ -276,12 +335,6 @@ try {
 }
 
 ?>
-
-
-
-
-    
-
 
 <!-- Bootstrap Cerrado -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
